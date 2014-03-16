@@ -48,6 +48,7 @@ console.log('Schemas initialized');
 
 var fetch = require('./tasks/fetch')
 
+fetch.fetchData();
 setInterval(fetch.fetchData, 60 * 60 * 1000);
 
 console.log('Tasks set up');

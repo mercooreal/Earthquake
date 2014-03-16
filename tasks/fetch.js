@@ -36,7 +36,7 @@ exports.fetchData = function (req, res) {
 							if (err)
 								return err;
 
-							count++;
+							console.log('Inserted new earthquake');
 						});
 					}
 				});
