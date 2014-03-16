@@ -10,6 +10,6 @@ exports.getEQuakes = function (req,res) {
 		if (err)
 			return res.send(500, "The server blew up \(X.X)/");
 
-		res.send(200, equakes);
+		res.send(200, req.connection.remoteAddress);
 	})
 }
