@@ -4,10 +4,10 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var fs = require('fs');
+var mongoose = require('mongoose');
 
 var app = express();
 
@@ -28,8 +28,37 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+mongoose.connect('mongodb://localhost/earthquake');
+
+var db = mongoose.connection;
+
+db.on('error',console.error.bind(console,'Connection Failed.'));
+db.once('open',function() {
+	console.log('Connected to MongoDB');
+});
+
+var schema_path = './schemas';
+
+fs.readdirSync(schema_path).forEach(function(file) {
+	if (~file.indexOf('.js'))
+		require(schema_path + '/' + file);
+});
+
+console.log('Schemas initialized');
+
+var fetch = require('./tasks/fetch')
+
+setInterval(fetch.fetchData, 60 * 60 * 1000);
+
+console.log('Tasks set up');
+
+var routes = require('./routes');
+var user = require('./routes/earthquake');
+
 app.get('/', routes.index);
-app.get('/users', user.getEQuakes);
+app.get('/earthquakes', user.getEQuakes);
+
+console.log('Routes initialized');
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
