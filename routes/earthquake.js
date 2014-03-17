@@ -4,7 +4,7 @@ var Earthquake = mongoose.model('Earthquake');
 exports.getEQuakes = function (req,res) {
 	Earthquake
 	.find()
-	.limit(req.query.limit)
+	.limit(req.query.limit || 5)
 	.skip(req.query.skip)
 	.lean()
 	.select('-__v')
