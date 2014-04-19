@@ -1,8 +1,18 @@
 var mongoose = require('mongoose');
 var geoip = require('geoip-lite');
+var geolib = require('geolib');
 var Earthquake = mongoose.model('Earthquake');
 
 exports.getEquakes = function (req ,res) {
+	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+	var ll = geoip.lookup(ip).ll;
+
+	var userLoc = {
+		latitude: ll[0],
+		longtitude: ll[1]
+	};
+
 	Earthquake
 	.find()
 	.limit(req.query.limit || 5)
@@ -13,6 +23,17 @@ exports.getEquakes = function (req ,res) {
 	.exec(function (err, equakes) {
 		if (err)
 			return res.send(500, "The server blew up \(X.X)/");
+
+		for (var i = 0; i < equakes.length; i++) {
+			var quakeLoc = {
+				latitude: equakes[i].latitude,
+				longtitude: equakes[i].longtitude
+			}
+
+			if (geolib.getDistance(quakeLoc, userLoc) <= (req.query.radius * 1000)) {
+				equakes[i].danger = 'medium';
+			}
+		}
 
 		return res.send(200, equakes);
 	});
