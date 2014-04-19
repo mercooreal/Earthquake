@@ -1,10 +1,6 @@
 'use strict'
 
 function MainController($scope, Earthquake) {
-	Earthquake.getIP({}, function(ip) {
-		console.log(ip);
-	});
-
 	$scope.saveEq = function() {
 		Earthquake.post({
 			title: $scope.title,
@@ -18,6 +14,10 @@ function MainController($scope, Earthquake) {
 		}, function(res) {
 			console.log('Earthquake created');
 		});
+	}
+
+	$scope.generateTime = function() {
+		$scope.date_time = new Date().toISOString();
 	}
 };
 

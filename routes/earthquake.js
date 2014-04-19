@@ -25,8 +25,6 @@ exports.getEquakes = function (req ,res) {
 				longitude: ll[1]
 			};
 
-
-
 			for (var i = 0; i < equakes.length; i++) {
 				var quakeLoc = {
 					latitude: equakes[i].latitude,
