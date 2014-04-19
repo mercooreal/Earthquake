@@ -31,7 +31,7 @@ exports.getEquakes = function (req ,res) {
 					longtitude: equakes[i].longtitude
 				}
 
-				if (true) {
+				if (geolib.getDistance({latitude: 51.5103, longitude: 7.49347},{latitude: "51° 31' N", longitude: "7° 28' E"}) <= 10000) {
 					equakes[i].danger = 'medium';
 				}
 			}
