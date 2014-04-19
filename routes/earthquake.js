@@ -31,8 +31,20 @@ exports.getEquakes = function (req ,res) {
 					longitude: equakes[i].longitude
 				}		
 
-				if (geolib.getDistance(quakeLoc, userLoc) <= (req.query.radius * 1000)) {
+				/*if (geolib.getDistance(quakeLoc, userLoc) <= (req.query.radius * 1000)) {
 					equakes[i].danger = 'medium';
+				}*/
+
+				var distance = geolib.getDistance(quakeLoc, userLoc) / 1000;
+
+				if (distance <= 50) {
+					equakes[i].danger = 'high';
+				} else if (distance <= 100) {
+					equakes[i].danger = 'medium';
+				} else if (distance <= 200) {
+					equakes[i].danger = 'low';
+				} else {
+					equakes[i].danger = 'none';
 				}
 			}
 		}
