@@ -28,8 +28,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-mongoose.connect('mongodb://localhost/earthquake');
-//mongoose.connect('mongodb://HcbGKYsBmhKU:OuzgJdnMdabT@dbs004.mongosoup.de/cc_HcbGKYsBmhKU');
+//mongoose.connect('mongodb://localhost/earthquake');
+mongoose.connect('mongodb://HcbGKYsBmhKU:OuzgJdnMdabT@dbs004.mongosoup.de/cc_HcbGKYsBmhKU');
 
 var db = mongoose.connection;
 
