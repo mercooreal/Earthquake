@@ -1,5 +1,33 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1
+        | Insert an earthquake
+    br
+    form.eq-form
+        h4
+            | Earthquake title:
+        input(type='text', ng-model='title')
+        h4
+            | Earthquake magnitude:
+        input(type='text', ng-model='magnitude')
+        h4
+            | Earthquake location:
+        input(type='text', ng-model='location')
+        h4
+            | Earthquake depth:
+        input(type='text', ng-model='depth')
+        h4
+            | Earthquake latitude:
+        input(type='text', ng-model='latitude')
+        h4
+            | Earthquake longitude:
+        input(type='text', ng-model='longitude')
+        h4
+            | Earthquake time:
+        input(type='text', ng-model='date_time')
+        h4
+            | External link:
+        input(type='text', ng-model='link')
+        button(type='button', ng-click='saveEq()')
+            | Submit

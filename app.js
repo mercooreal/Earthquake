@@ -29,6 +29,7 @@ if ('development' == app.get('env')) {
 }
 
 mongoose.connect('mongodb://localhost/earthquake');
+//mongoose.connect('mongodb://HcbGKYsBmhKU:OuzgJdnMdabT@dbs004.mongosoup.de/cc_HcbGKYsBmhKU');
 
 var db = mongoose.connection;
 
@@ -47,17 +48,18 @@ fs.readdirSync(schema_path).forEach(function(file) {
 console.log('Schemas initialized');
 
 var fetch = require('./tasks/fetch')
-
+/*
 fetch.fetchData();
-setInterval(fetch.fetchData, 30 * 60 * 1000);
+setInterval(fetch.fetchData, 30 * 60 * 1000);*/
 
 console.log('Tasks set up');
 
 var routes = require('./routes');
-var user = require('./routes/earthquake');
+var eq = require('./routes/earthquake');
 
 app.get('/', routes.index);
-app.get('/earthquakes', user.getEQuakes);
+app.get('/api/earthquakes', eq.getEquakes);
+app.post('/api/earthquakes', eq.insertEq);
 
 console.log('Routes initialized');
 

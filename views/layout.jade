@@ -1,7 +1,12 @@
 doctype html
-html
+html(ng-app="eqApp")
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+  body(ng-controller='MainController')
     block content
+    script(src='/bower_components/angular/angular.min.js')
+    script(src='libs/angular-resource.min.js')
+    script(src='javascripts/angular/app.js')
+    script(src='javascripts/angular/controllers/MainCtrl.js')
+    script(src='javascripts/angular/services/Earthquake.js')
