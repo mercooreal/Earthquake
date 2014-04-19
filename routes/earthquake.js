@@ -24,17 +24,19 @@ exports.getEquakes = function (req ,res) {
 		if (err)
 			return res.send(500, "The server blew up \(X.X)/");
 
-		for (var i = 0; i < equakes.length; i++) {
-			var quakeLoc = {
-				latitude: equakes[i].latitude,
-				longtitude: equakes[i].longtitude
-			}
+		if (req.query.radius) {
+			for (var i = 0; i < equakes.length; i++) {
+				var quakeLoc = {
+					latitude: equakes[i].latitude,
+					longtitude: equakes[i].longtitude
+				}
 
-			if (geolib.getDistance(quakeLoc, userLoc) <= (req.query.radius * 1000)) {
-				equakes[i].danger = 'medium';
+				if (geolib.getDistance(quakeLoc, userLoc) <= (req.query.radius * 1000)) {
+					equakes[i].danger = 'medium';
+				}
 			}
 		}
-
+		
 		return res.send(200, equakes);
 	});
 }
