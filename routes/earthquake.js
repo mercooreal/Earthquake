@@ -32,8 +32,8 @@ exports.getEquakes = function (req ,res) {
 					latitude: equakes[i].latitude,
 					longitude: equakes[i].longitude
 				}		
-				
-				if (geolib.getDistance(quakeLoc, userLoc) <= 10000) {
+
+				if (geolib.getDistance(quakeLoc, userLoc) <= (req.query.radius * 1000)) {
 					equakes[i].danger = 'medium';
 				}
 			}
