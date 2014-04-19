@@ -22,7 +22,7 @@ exports.getEquakes = function (req ,res) {
 
 			var userLoc = {
 				latitude: ll[0],
-				longtitude: ll[1]
+				longitude: ll[1]
 			};
 
 
@@ -30,11 +30,9 @@ exports.getEquakes = function (req ,res) {
 			for (var i = 0; i < equakes.length; i++) {
 				var quakeLoc = {
 					latitude: equakes[i].latitude,
-					longtitude: equakes[i].longtitude
+					longitude: equakes[i].longitude
 				}		
-
-				console.log(userLoc, quakeLoc)
-
+				
 				if (geolib.getDistance(quakeLoc, userLoc) <= 10000) {
 					equakes[i].danger = 'medium';
 				}
