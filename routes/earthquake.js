@@ -25,13 +25,17 @@ exports.getEquakes = function (req ,res) {
 				longtitude: ll[1]
 			};
 
+
+
 			for (var i = 0; i < equakes.length; i++) {
 				var quakeLoc = {
 					latitude: equakes[i].latitude,
 					longtitude: equakes[i].longtitude
-				}
+				}		
 
-				if (geolib.getDistance({latitude: 51.5103, longitude: 7.49347},{latitude: "51° 31' N", longitude: "7° 28' E"}) <= 10000) {
+				console.log(userLoc, quakeLoc)
+
+				if (geolib.getDistance(quakeLoc, userLoc) <= 10000) {
 					equakes[i].danger = 'medium';
 				}
 			}
