@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var geoip = require('geoip-lite');
 var Earthquake = mongoose.model('Earthquake');
 
 exports.getEquakes = function (req ,res) {
@@ -28,5 +29,16 @@ exports.insertEq = function (req, res) {
 		}
 
 		res.send(201, {msg: 'OK'})
+	});
+}
+
+exports.getLocation = function (req,res) {
+	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+	var geo = geoip.lookup(ip);
+
+	res.send(200, {
+		add: ip,
+		loc: geo
 	});
 }

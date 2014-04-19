@@ -1,6 +1,10 @@
 'use strict'
 
 function MainController($scope, Earthquake) {
+	Earthquake.getIP({}, function(ip) {
+		console.log(ip);
+	});
+
 	$scope.saveEq = function() {
 		Earthquake.post({
 			title: $scope.title,
