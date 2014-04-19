@@ -15,37 +15,38 @@ exports.getEquakes = function (req ,res) {
 		if (err)
 			return res.send(500, "The server blew up \(X.X)/");
 
-		if (req.query.radius) {
-			var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+		var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-			var ll = geoip.lookup(ip).ll;
+		if (ip == '127.0.0.1')
+			return res.send(200, equakes);
 
-			var userLoc = {
-				latitude: ll[0],
-				longitude: ll[1]
-			};
+		var ll = geoip.lookup(ip).ll;
 
-			for (var i = 0; i < equakes.length; i++) {
-				var quakeLoc = {
-					latitude: equakes[i].latitude,
-					longitude: equakes[i].longitude
-				}		
+		var userLoc = {
+			latitude: ll[0],
+			longitude: ll[1]
+		};
 
-				/*if (geolib.getDistance(quakeLoc, userLoc) <= (req.query.radius * 1000)) {
-					equakes[i].danger = 'medium';
-				}*/
+		for (var i = 0; i < equakes.length; i++) {
+			var quakeLoc = {
+				latitude: equakes[i].latitude,
+				longitude: equakes[i].longitude
+			}		
 
-				var distance = geolib.getDistance(quakeLoc, userLoc) / 1000;
+			/*if (geolib.getDistance(quakeLoc, userLoc) <= (req.query.radius * 1000)) {
+				equakes[i].danger = 'medium';
+			}*/
 
-				if (distance <= 50) {
-					equakes[i].danger = 'high';
-				} else if (distance <= 100) {
-					equakes[i].danger = 'medium';
-				} else if (distance <= 200) {
-					equakes[i].danger = 'low';
-				} else {
-					equakes[i].danger = 'none';
-				}
+			var distance = geolib.getDistance(quakeLoc, userLoc) / 1000;
+
+			if (distance <= 50) {
+				equakes[i].danger = 'high';
+			} else if (distance <= 100) {
+				equakes[i].danger = 'medium';
+			} else if (distance <= 200) {
+				equakes[i].danger = 'low';
+			} else {
+				equakes[i].danger = 'none';
 			}
 		}
 		
