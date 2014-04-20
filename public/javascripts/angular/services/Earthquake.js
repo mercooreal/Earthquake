@@ -3,12 +3,16 @@
 function Earthquake($resource) {
 	var apiUrl = '/api/earthquakes';
 	return $resource(apiUrl, { id : '@id'}, {
-		get: {
+		'get': {
 			method: 'GET',
 			isArray: true
 		},
-		post: {
+		'post': {
 			method: 'POST'
+		},
+		'delete': {
+			url: apiUrl + '/:id',
+			method: 'DELETE'
 		}
 	});
 };

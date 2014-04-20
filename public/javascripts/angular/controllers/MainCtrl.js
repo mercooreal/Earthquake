@@ -1,6 +1,16 @@
 'use strict'
 
 function MainController($scope, Earthquake) {
+	$scope.getEquakes = function () {
+		Earthquake.get({
+			limit: 10,
+			skip: $scope.equakes
+		}, function(equakes) {
+			$scope.equakes = equakes;
+		});
+	}
+	$scope.getEquakes();
+
 	$scope.saveEq = function() {
 		Earthquake.post({
 			title: $scope.title,
@@ -12,7 +22,15 @@ function MainController($scope, Earthquake) {
 		    date_time: $scope.date_time,
 		    link: $scope.link
 		}, function(res) {
-			console.log('Earthquake created');
+			$scope.getEquakes();
+		});
+	}
+
+	$scope.deleteEq = function(eq, index) {
+		Earthquake.delete({
+			id: eq._id
+		}, function(res) {
+			$scope.equakes.splice(index, 1);
 		});
 	}
 

@@ -1,35 +1,71 @@
 extends layout
 
 block content
-    h1
-        | Insert an earthquake
-    br
-    form.eq-form
-        h4
-            | Earthquake title:
-        input(type='text', ng-model='title')
-        h4
-            | Earthquake magnitude:
-        input(type='text', ng-model='magnitude')
-        h4
-            | Earthquake location:
-        input(type='text', ng-model='location')
-        h4
-            | Earthquake depth:
-        input(type='text', ng-model='depth')
-        h4
-            | Earthquake latitude:
-        input(type='text', ng-model='latitude')
-        h4
-            | Earthquake longitude:
-        input(type='text', ng-model='longitude')
-        h4
-            | Earthquake time:
-        button(type='button', ng-click='generateTime()')
-            | Generate
-        input(type='text', ng-model='date_time')
-        h4
-            | External link:
-        input(type='text', ng-model='link')
-        button(type='button', ng-click='saveEq()')
-            | Submit
+    .content
+        .panel-group#accordion
+            .panel.panel-default
+                .panel-heading
+                    h1.panel-title
+                        a(data-toggle="collapse", data-parent="#accordion", href="#collapseOne")
+                            | Insert an earthquake
+            .panel-collapse.collapse.in#collapseOne
+                .panel-body
+                    form.eq-form
+                        .form-group
+                            h4
+                                | Title:
+                            input.form-control(type='text', ng-model='title')
+                        .form-group
+                            h4
+                                | Magnitude:
+                            input.form-control(type='text', ng-model='magnitude')
+                        .form-group
+                            h4
+                                | Location:
+                            input.form-control(type='text', ng-model='location')
+                        .form-group
+                            h4
+                                | Depth:
+                            input.form-control(type='text', ng-model='depth')
+                        .form-group
+                            h4
+                                | Latitude:
+                            input.form-control(type='text', ng-model='latitude')
+                        .form-group
+                            h4
+                                | Longitude:
+                            input.form-control(type='text', ng-model='longitude')
+                        .form-group
+                            h4
+                                | Time:
+                        .form-group
+                            input.form-control(type='text', ng-model='date_time')
+                        button.btn.btn-primary(type='button', ng-click='generateTime()')
+                                | Generate
+                        .form-group
+                            h4
+                                | External link:
+                            input.form-control(type='text', ng-model='link')
+                        button.btn.btn-primary(type='button', ng-click='saveEq()')
+                            | Submit
+        .panel.panel-default
+                .panel-heading
+                    h1.panel-title
+                        a(data-toggle="collapse", data-parent="#accordion", href="#collapseTwo")
+                            | Earthquake list
+            .panel-collapse.collapse.in#collapseTwo
+                .panel-body.eq-list
+                        input.form-control(type='search', placeholder='Search...', ng-model='search')
+                        table.table
+                            tr
+                                th #
+                                th Location
+                                th M
+                                th 
+                            tr(ng-repeat="eq in equakes | filter: search")
+                                td {{ $index + 1 }}
+                                td {{ eq.location }}
+                                td {{ eq.magnitude }}
+                                td 
+                                    a(href='javascript:void(0)',ng-click="deleteEq(eq, $index)")
+                                        i.fa.fa-times.pull-right

@@ -13,7 +13,7 @@ exports.getEquakes = function (req ,res) {
 	.sort({date_time: -1})
 	.exec(function (err, equakes) {
 		if (err)
-			return res.send(500, "The server blew up \(X.X)/");
+			return res.send(500, {err: err});
 
 		var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
@@ -61,10 +61,26 @@ exports.insertEq = function (req, res) {
 
 	eq.save(function (err) {
 		if (err) {
-			return res.send(500,{msg: "Couldn't create earthquake"});
+			return res.send(500, {err: err});
 		}
 
 		res.send(201, {msg: 'OK'})
+	});
+}
+
+exports.deleteEq = function (req, res) {
+	Earthquake
+	.findById(req.params.id)
+	.exec(function (err, eq) {
+		if (err)
+			return res.send(500, {err: err});
+
+		eq.remove(function(err) {
+			if (err)
+				return res.send(500, {err: err});
+
+			res.send(200, {msg: 'OK'});
+		});
 	});
 }
 

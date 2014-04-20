@@ -3,10 +3,14 @@ html(ng-app="eqApp")
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='libs/font-awesome.css')
   body(ng-controller='MainController')
     block content
     script(src='/bower_components/angular/angular.min.js')
+    script(src='/bower_components/jquery/dist/jquery.min.js')
     script(src='libs/angular-resource.min.js')
     script(src='javascripts/angular/app.js')
     script(src='javascripts/angular/controllers/MainCtrl.js')
     script(src='javascripts/angular/services/Earthquake.js')
+    script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')

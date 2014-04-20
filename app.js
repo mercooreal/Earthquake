@@ -60,6 +60,7 @@ var eq = require('./routes/earthquake');
 app.get('/', routes.index);
 app.get('/api/earthquakes', eq.getEquakes);
 app.post('/api/earthquakes', eq.insertEq);
+app.delete('/api/earthquakes/:id', eq.deleteEq);
 app.get('/api/location', eq.getLocation);
 
 console.log('Routes initialized');
