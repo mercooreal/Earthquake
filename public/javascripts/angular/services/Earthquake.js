@@ -3,14 +3,14 @@
 function Earthquake($resource) {
 	var apiUrl = '/api/earthquakes';
 	return $resource(apiUrl, { id : '@id'}, {
-		'get': {
+		'getEquakes': {
 			method: 'GET',
 			isArray: true
 		},
-		'post': {
+		'postEquake': {
 			method: 'POST'
 		},
-		'delete': {
+		'deleteEquake': {
 			url: apiUrl + '/:id',
 			method: 'DELETE'
 		}

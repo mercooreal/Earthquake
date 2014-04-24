@@ -1,7 +1,15 @@
 extends layout
 
 block content
-    .content
+    .login(ng-hide='user')
+        form.login-form(name='login')
+            .form-group
+                input(type='text', name='username', placeholder='Enter your username..', ng-model='username')
+            .form-group
+                input(type='password', name='password', placeholder='Enter your password..', ng-model='password')
+            button.btn.btn-primary(type='button', ng-click='signIn()')
+                | Submit
+    .content(ng-show='user')
         .panel-group#accordion
             .panel.panel-default
                 .panel-heading
