@@ -61,6 +61,7 @@ var user = require('./routes/user');
 app.get('/', routes.index);
 app.get('/api/earthquakes', eq.getEquakes);
 app.post('/api/earthquakes', eq.insertEq);
+app.delete('/api/earthquakes/all', eq.deleteAll);
 app.delete('/api/earthquakes/:id', eq.deleteEq);
 app.get('/api/location', eq.getLocation);
 app.post('/api/signin', user.signIn);

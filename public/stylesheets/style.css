@@ -34,6 +34,7 @@ body {
 }
 
 .eq-list input[type="search"] {
+	display: inline;
 	width: 150px;
 	margin-bottom: 15px;
 	-webkit-transition: width 0.4s ease-in-out;
@@ -46,4 +47,29 @@ body {
 
 .panel-title {
 	font-size: 22px !important;
+}
+
+.login {
+	width: 700px;
+	height:100vh;
+	margin: auto;
+}
+
+.auth-form {
+	background-color: #ffffff;
+	text-align: center;
+	padding: 20px;
+	width: 350px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 200px;
+	border-radius: 7px;
+}
+
+.auth-form h3 {
+	margin-top: 0;
+}
+
+.auth-form h5 {
+	color: red;
 }

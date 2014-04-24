@@ -13,6 +13,10 @@ function Earthquake($resource) {
 		'deleteEquake': {
 			url: apiUrl + '/:id',
 			method: 'DELETE'
+		},
+		'deleteAll': {
+			url: apiUrl + '/all',
+			method: 'DELETE'
 		}
 	});
 };

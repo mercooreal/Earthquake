@@ -1,17 +1,18 @@
 'use strict'
 
-function EarthquakeController($scope, Earthquake) {
+function EarthquakeController($scope, $rootScope, Earthquake) {
+	$scope.equakes = [];
+	
 	$scope.getEquakes = function () {
 		Earthquake.getEquakes({
 			limit: 10,
-			skip: $scope.equakes
+			skip: $scope.equakes.length
 		}, function(equakes) {
 			$scope.equakes = equakes;
 		});
 	}
-	$scope.getEquakes();
 
-	$scope.save = function() {
+	$scope.saveEq = function() {
 		Earthquake.postEquake({
 			title: $scope.title,
 		    magnitude: $scope.magnitude,
@@ -26,7 +27,7 @@ function EarthquakeController($scope, Earthquake) {
 		});
 	}
 
-	$scope.delete = function(eq, index) {
+	$scope.deleteEq = function(eq, index) {
 		Earthquake.deleteEquake({
 			id: eq._id
 		}, function(res) {
@@ -34,9 +35,17 @@ function EarthquakeController($scope, Earthquake) {
 		});
 	}
 
+	$scope.deleteAll = function() {
+		Earthquake.deleteAll({}, function(res) {
+			$scope.equakes = [];
+		});
+	}
+
 	$scope.generateTime = function() {
 		$scope.date_time = new Date().toISOString();
 	}
+
+	$rootScope.$on('auth_success', $scope.getEquakes);
 };
 
-angular.module('eqApp.controllers').controller('EarthquakeController', ['$scope', 'Earthquake', EarthquakeController]);
+angular.module('eqApp.controllers').controller('EarthquakeController', ['$scope', '$rootScope', 'Earthquake', EarthquakeController]);

@@ -6,7 +6,7 @@ var Earthquake = mongoose.model('Earthquake');
 exports.getEquakes = function (req ,res) {
 	Earthquake
 	.find()
-	.limit(req.query.limit || 5)
+	.limit(req.query.limit || 20)
 	.skip(req.query.skip)
 	.lean()
 	.select('-__v')
@@ -60,9 +60,8 @@ exports.insertEq = function (req, res) {
 	eq = new Earthquake(eq);
 
 	eq.save(function (err) {
-		if (err) {
+		if (err) 
 			return res.send(500, {err: err});
-		}
 
 		res.send(201, {msg: 'OK'})
 	});
@@ -84,7 +83,16 @@ exports.deleteEq = function (req, res) {
 	});
 }
 
-exports.getLocation = function (req,res) {
+exports.deleteAll = function (req, res) {
+	Earthquake.remove({}, function(err) {
+		if (err)
+			return res.send(500, err);
+
+		res.send(200);
+	});
+}
+
+exports.getLocation = function (req, res) {
 	var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
 	var geo = geoip.lookup(ip);

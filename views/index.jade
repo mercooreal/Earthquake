@@ -2,14 +2,18 @@ extends layout
 
 block content
     .login(ng-hide='user')
-        form.login-form(name='login')
+        form.auth-form(name='login')
+            h3
+                | Login
+            h5(ng-show="authFail", ng-cloak)
+                | Wrong credentials
             .form-group
-                input(type='text', name='username', placeholder='Enter your username..', ng-model='username')
+                input.form-control(type='text', name='username', placeholder='Enter your username..', ng-model='username')
             .form-group
-                input(type='password', name='password', placeholder='Enter your password..', ng-model='password')
-            button.btn.btn-primary(type='button', ng-click='signIn()')
+                input.form-control(type='password', name='password', placeholder='Enter your password..', ng-model='password')
+            button.btn.btn-primary(type='submit', ng-click='signIn()')
                 | Submit
-    .content(ng-show='user')
+    .content(ng-show='user', ng-controller="EarthquakeController", ng-cloak)
         .panel-group#accordion
             .panel.panel-default
                 .panel-heading
@@ -64,6 +68,8 @@ block content
             .panel-collapse.collapse.in#collapseTwo
                 .panel-body.eq-list
                         input.form-control(type='search', placeholder='Search...', ng-model='search')
+                        button.btn.btn-danger.pull-right(type='button', ng-click='deleteAll()', ng-show='user.role == "superadmin"')
+                            | Delete all
                         table.table
                             tr
                                 th #
