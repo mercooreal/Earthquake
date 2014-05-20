@@ -48,9 +48,9 @@ fs.readdirSync(schema_path).forEach(function(file) {
 console.log('Schemas initialized');
 
 var fetch = require('./tasks/fetch')
-/*
+
 fetch.fetchData();
-setInterval(fetch.fetchData, 30 * 60 * 1000);*/
+setInterval(fetch.fetchData, 30 * 60 * 1000);
 
 console.log('Tasks set up');
 

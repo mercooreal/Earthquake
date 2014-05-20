@@ -73,3 +73,7 @@ body {
 .auth-form h5 {
 	color: red;
 }
+
+.load-more {
+	margin-left: 43%;
+}

@@ -8,7 +8,9 @@ function EarthquakeController($scope, $rootScope, Earthquake) {
 			limit: 10,
 			skip: $scope.equakes.length
 		}, function(equakes) {
-			$scope.equakes = equakes;
+			equakes.forEach(function(eq) {
+				$scope.equakes.push(eq);
+			});
 		});
 	}
 
