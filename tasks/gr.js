@@ -8,7 +8,7 @@ exports.getAftershocks = function(equake, a, b) {
 
 	var count = 10;
 
-	while (mag > 1) {
+	while (mag > 2) {
 		res.push({
 			count: count,
 			mag: (mag - 1).toFixed(2)
