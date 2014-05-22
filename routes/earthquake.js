@@ -37,7 +37,7 @@ exports.getEquakes = function (req ,res) {
 			/*if (geolib.getDistance(quakeLoc, userLoc) <= (req.query.radius * 1000)) {
 				equakes[i].danger = 'medium';
 			}*/
-			equakes[i].aftershocks = gr.getAftershocks(equakes[i],req.query.a || 0.5,req.query.b || 1);
+			equakes[i].aftershocks = gr.getAftershocks(equakes[i], req.query.a || 0.5, req.query.b || 1);
 
 			var distance = geolib.getDistance(quakeLoc, userLoc) / 1000;
 
