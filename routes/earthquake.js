@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var geoip = require('geoip-lite');
 var geolib = require('geolib');
+var gr = require('../tasks/gr');
 var Earthquake = mongoose.model('Earthquake');
 
 exports.getEquakes = function (req ,res) {
@@ -36,6 +37,7 @@ exports.getEquakes = function (req ,res) {
 			/*if (geolib.getDistance(quakeLoc, userLoc) <= (req.query.radius * 1000)) {
 				equakes[i].danger = 'medium';
 			}*/
+			equakes[i].aftershocks = gr.getAftershocks(equakes[i], 0.5, 1);
 
 			var distance = geolib.getDistance(quakeLoc, userLoc) / 1000;
 
